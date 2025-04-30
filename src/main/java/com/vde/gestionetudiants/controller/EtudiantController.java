@@ -17,6 +17,7 @@ public class EtudiantController {
     public Iterable<Etudiant> getEtudiants() {
         return etudiantService.getEtudiants();
     }
+
     @GetMapping("/etudiant/{id}")
     public Etudiant getEtudiantById(@PathVariable("id") int id) {
         return etudiantService.getEtudiantById(id);

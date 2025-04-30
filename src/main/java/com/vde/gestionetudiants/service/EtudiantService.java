@@ -29,6 +29,7 @@ public class EtudiantService {
     public  void deleteEtudiantById(Integer id) {
         etudiantRepository.deleteById(id);
     }
+
     public  Etudiant updateEtudiant(int id,Etudiant etudiant) {
         Optional<Etudiant> etu = etudiantRepository.findById(id);
         if(etu.isPresent()){

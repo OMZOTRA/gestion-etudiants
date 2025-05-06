@@ -1,13 +1,17 @@
 package com.vde.gestionetudiants.modele;
 
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name= "etudiants")
 public class Etudiant {
     @Id
@@ -26,6 +30,20 @@ public class Etudiant {
     @JoinTable(
             name = "etudiants_cours",
             joinColumns = @JoinColumn(name = "idetudiant"),
-            inverseJoinColumns = @JoinColumn(name = "idCour"))
-            Set<Cours> cours;
+            inverseJoinColumns = @JoinColumn(name = "id_cour"))
+            @JsonBackReference
+            @JsonManagedReference
+            private Set<Cours> cours = new HashSet<>();
+
+
+    public void addCours(Cours cour) {
+        cours.add(cour);
+        cour.getEtudiants().add(this);
+
+    }
+
+    /* public void removeCours(Cours cour) {
+        cours.remove(cour);
+        cour.getEtudiants().remove(this);
+    }*/
 }

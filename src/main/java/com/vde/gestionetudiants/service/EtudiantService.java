@@ -1,11 +1,13 @@
 package com.vde.gestionetudiants.service;
 
+import com.vde.gestionetudiants.modele.Cours;
 import com.vde.gestionetudiants.modele.Etudiant;
 import com.vde.gestionetudiants.repository.EtudiantRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -14,7 +16,7 @@ public class EtudiantService {
     @Autowired
     private EtudiantRepository etudiantRepository;
 
-    public  Iterable<Etudiant> getEtudiants() {
+    public List<Etudiant> getEtudiants() {
         return etudiantRepository.findAll();
     }
 
@@ -30,7 +32,7 @@ public class EtudiantService {
         etudiantRepository.deleteById(id);
     }
 
-    public  Etudiant updateEtudiant(int id,Etudiant etudiant) {
+    public  Etudiant updateEtudiant(Integer id,Etudiant etudiant) {
         Optional<Etudiant> etu = etudiantRepository.findById(id);
         if(etu.isPresent()){
             Etudiant currentEtudiant = etu.get();
@@ -52,4 +54,22 @@ public class EtudiantService {
             return null;
         }
     }
+
+    // Add cour to etudiant
+    public Etudiant addCours(Integer etudiant_id, Cours cour) {
+      Etudiant etudiant = getEtudiantById(etudiant_id);
+      if (etudiant != null) {
+          etudiant.addCours(cour);
+          return  saveEtudiant(etudiant);
+      }
+      return null;
+    }
+
+    // remove cour to etudiant
+/*
+    public void removeCours(Integer etudiant_id, Cours cour) {
+        Etudiant etudiant = getEtudiantById(etudiant_id);
+        if (etudiant != null) {
+        }
+    }*/
 }

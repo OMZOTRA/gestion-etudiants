@@ -1,5 +1,6 @@
 package com.vde.gestionetudiants.controller;
 
+import com.vde.gestionetudiants.modele.Cours;
 import com.vde.gestionetudiants.modele.Etudiant;
 import com.vde.gestionetudiants.service.EtudiantService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,35 +9,42 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/etudiants")
 public class EtudiantController {
 
     @Autowired
     private EtudiantService etudiantService;
 
-    @GetMapping("/etudiants")
-    public Iterable<Etudiant> getEtudiants() {
+    @GetMapping("")
+    public List<Etudiant> getEtudiants() {
+
         return etudiantService.getEtudiants();
     }
 
-    @GetMapping("/etudiant/{id}")
+    @GetMapping("/{id}")
     public Etudiant getEtudiantById(@PathVariable("id") int id) {
+
         return etudiantService.getEtudiantById(id);
     }
-
-    @PostMapping("/etudiant/add")
-    public String addEtudiant(@RequestBody Etudiant etudiant) {
-            etudiantService.saveEtudiant(etudiant);
-            return "Etudiant added :" + etudiant;
+    @PostMapping("/create")
+    public Etudiant addEtudiant(@RequestBody Etudiant etudiant) {
+         return etudiantService.saveEtudiant(etudiant);
     }
 
-    @DeleteMapping("/etudiant/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public String deleteEtudiant(@PathVariable("id") int id) {
         etudiantService.deleteEtudiantById(id);
         return "Etudiant deleted :" + id;
     }
 
-    @PutMapping("/etudiant/update/{id}")
+    @PutMapping("/update/{id}")
     public Etudiant updateEtudiant(@PathVariable("id") int id,@RequestBody Etudiant etudiant) {
         return etudiantService.updateEtudiant(id, etudiant);
     }
+
+    @PostMapping("/{id}/cours")
+    public  Etudiant addcours(@PathVariable( name = "id") int id,@RequestBody Cours cours) {
+        return  etudiantService.addCours(id,cours);
+    }
+
 }

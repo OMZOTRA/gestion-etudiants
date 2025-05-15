@@ -23,17 +23,17 @@ public class CourController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Cours> getCourById(@PathVariable("id") int id) {
+    public Cours getCourById(@PathVariable("id") long id) {
         return courService.getCour(id);
     }
 
-    @PostMapping("/create")
-    public Cours  createCour(@RequestBody Cours cour) {
-       return  courService.saveCour(cour);
+    @PostMapping(value = "/create")
+    public Cours createCour(@RequestBody Cours cour) {
+       return courService.saveCour(cour);
     }
 
     @DeleteMapping("/delete/{id}")
-    public String deleteCourById(@PathVariable("id") int id) {
+    public String deleteCourById(@PathVariable("id") long id) {
         courService.deleteCour(id);
         return "Cour deleted :" + id;
     }

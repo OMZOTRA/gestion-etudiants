@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CourRepository extends JpaRepository<Cours, Integer> {
+public interface CourRepository extends JpaRepository<Cours, Long> {
 }

@@ -19,15 +19,15 @@ public class CourService {
         return courRepository.findAll();
     }
 
-    public Optional<Cours> getCour(Integer id) {
-        return courRepository.findById(id);
+    public Cours getCour(Long id) {
+        return courRepository.findById(id).get();
     }
 
     public Cours saveCour(Cours cour) {
        return courRepository.save(cour);
     }
 
-    public  void deleteCour(Integer id) {
+    public  void deleteCour(Long id) {
         courRepository.deleteById(id);
     }
 

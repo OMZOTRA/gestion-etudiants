@@ -22,7 +22,7 @@ public class EtudiantController {
     }
 
     @GetMapping("/{id}")
-    public Etudiant getEtudiantById(@PathVariable("id") int id) {
+    public Etudiant getEtudiantById(@PathVariable("id") long id) {
 
         return etudiantService.getEtudiantById(id);
     }
@@ -32,19 +32,18 @@ public class EtudiantController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public String deleteEtudiant(@PathVariable("id") int id) {
+    public String deleteEtudiant(@PathVariable("id") long id) {
         etudiantService.deleteEtudiantById(id);
         return "Etudiant deleted :" + id;
     }
 
     @PutMapping("/update/{id}")
-    public Etudiant updateEtudiant(@PathVariable("id") int id,@RequestBody Etudiant etudiant) {
+    public Etudiant updateEtudiant(@PathVariable("id") long id,@RequestBody Etudiant etudiant) {
         return etudiantService.updateEtudiant(id, etudiant);
     }
 
-    @PostMapping("/{id}/cours")
-    public  Etudiant addcours(@PathVariable( name = "id") int id,@RequestBody Cours cours) {
-        return  etudiantService.addCours(id,cours);
+    @PutMapping("/{etudiantId}/cours/{coursId}")
+    public  Etudiant addcours(@PathVariable(name = "etudiantId") long etudiantId, @PathVariable(name = "coursId") long coursId) {
+       return etudiantService.addCoursToEtudiant(etudiantId, coursId);
     }
-
 }

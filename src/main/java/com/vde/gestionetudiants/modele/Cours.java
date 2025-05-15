@@ -1,6 +1,5 @@
 package com.vde.gestionetudiants.modele;
 
-import com.fasterxml.jackson.annotation.JacksonInject;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -19,15 +18,13 @@ public class Cours {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id_cour;
+    long id_cour;
     @Column(name = "courname")
     String courname;
     @Column(name = "enseignant")
     String enseignant;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "cours")
-    @JsonBackReference
-    @JsonManagedReference
-    private Set<Etudiant> etudiants = new HashSet<>();
-
+    Set<Etudiant> etudiants = new HashSet<>();
 }

@@ -19,6 +19,10 @@ public class EtudiantService {
     @Autowired
     private CourRepository coursRepository;
 
+    public EtudiantService(EtudiantRepository etudiantRepository) {
+        this.etudiantRepository = etudiantRepository;
+    }
+
     public List<Etudiant> getEtudiants() {
         return etudiantRepository.findAll();
     }

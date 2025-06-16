@@ -19,7 +19,7 @@ public class DymaUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        return userRepository.findOneWithRolesByLoginIgnoreCase(login)
+        return userRepository.findByLoginIgnoreCase(login)
                 .map(this::createSecurityUser)
                 .orElseThrow(() -> new UsernameNotFoundException("User with login " + login + " could not be found."));
     }

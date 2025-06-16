@@ -1,11 +1,8 @@
 package com.vde.gestionetudiants.modele;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,6 +10,10 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString(exclude = "etudiants")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "cours")
 public class Cours {
 
@@ -24,7 +25,14 @@ public class Cours {
     @Column(name = "enseignant")
     String enseignant;
 
-    @JsonIgnore
+
     @ManyToMany(mappedBy = "cours")
+    @JsonIgnore
     Set<Etudiant> etudiants = new HashSet<>();
+
+    public void addEtudiant(Etudiant etudiant) {
+        this.etudiants.add(etudiant);
+        etudiant.getCours().add(this);
+    }
+
 }
